@@ -1,0 +1,131 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    width: 80%;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: auto;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #2d4b40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: white;
+    color: #2d4b40;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.menu button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #3c6656;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.menu button:hover {
+    background: #31574b;
+}
+
+/* Contenido principal */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+h1 {
+    color: #2d4b40;
+    margin: 0;
+}
+
+.subtext {
+    color: gray;
+    font-size: 14px;
+}
+
+/* Formulario */
+.form-container {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.date {
+    color: gray;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+textarea {
+    height: 60px;
+    resize: none;
+}
+
+button[type="submit"] {
+    margin-top: 15px;
+    background: #3c6656;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background: #31574b;
+}

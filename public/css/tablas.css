@@ -1,0 +1,161 @@
+table {
+    border-collapse: collapse;
+    width: 90%;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 5px solid #45A6FF;
+    background-color: #E6E6E6;
+    margin-top: 2%;
+    text-align: center;
+}
+
+th, td{
+    height: 35px;
+    border-bottom: 1px solid white;
+    align-content: center;
+}
+
+.tabla{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+thead {
+    border-bottom: 1px solid white;
+}
+
+tbody tr {
+    border-bottom: 1px solid white;
+}
+
+#myInput{
+    border-radius: 15px;
+    border: 1px solid #E6E6E6;
+    
+}
+
+/* Estilo para el boton de check */
+
+.checkbox-wrapper-23{
+    display: flex;
+    justify-content: center;
+}
+.checkbox-wrapper-23 *,
+.checkbox-wrapper-23 *:after,
+.checkbox-wrapper-23 *:before {
+    box-sizing: border-box;
+}
+
+.checkbox-wrapper-23 input {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkbox-wrapper-23 input:checked + label svg path {
+    stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-23 input:focus + label {
+    transform: scale(1.03);
+}
+
+.checkbox-wrapper-23 input + label {
+    display: block;
+    border: 2px solid #333;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.checkbox-wrapper-23 input + label:active {
+    transform: scale(1.05);
+    border-radius: 12px;
+}
+
+.checkbox-wrapper-23 input + label svg {
+    pointer-events: none;
+    padding: 5%;
+}
+
+.checkbox-wrapper-23 input + label svg path {      
+    fill: none;     
+    stroke: #333;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 101;
+    transition: all 250ms cubic-bezier(1,0,.37,.91);
+}
+
+
+.botones2{
+    width: 100%;
+    margin: 10px 30%;
+    padding: 10px 30px;
+    background: #45A6FF;
+    border-radius: 15px;
+    color: #ffff;
+    text-align: center;
+}
+.botones3{
+    width: 20%;
+    padding: 10px 30px;
+    background: #45A6FF;
+    border-radius: 15px;
+    color: #ffff;
+    text-align: center;
+}
+
+.edit_delete{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#ecf0f1;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+    margin: 0;
+}
+
+input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+.two_lateral{
+    display: flex;
+}
+.two_lateral .form-group{
+    margin: 1rem auto;
+}
