@@ -9,18 +9,19 @@ class Autorizaciones extends Model
 {
     use HasFactory;
 
+    protected $table = 'autorizaciones';
+    protected $primaryKey = 'id_autorisacion';
     protected $fillable = [
         'user_id',
         'motivo',
         'fecha',
         'hora_inicio',
         'hora_expiracion',
-        'estado',
+        'estado'
     ];
 
-    // Relación con el modelo User
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

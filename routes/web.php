@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\AutorizacionController;
+use App\Http\Controllers\AutorizacionesController;
+use App\Http\Controllers\FingerprintController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Models\Autorizaciones;
 use Illuminate\Support\Facades\Route;
 
 // Ruta para la vista de login
@@ -11,12 +14,16 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [AutorizacionesController::class, 'index'])->name('dashboard'); // ← Agrega esta ruta para cargar las autorizaciones
+    Route::get('/autorizaciones/crear', [AutorizacionesController::class, 'create'])->name('autorizaciones.create');
+    Route::post('/autorizaciones', [AutorizacionesController::class, 'store'])->name('autorizaciones.store');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    Route::get('/usuarios/crear', [UserController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
 
-    Route::get('/dashboard', [AutorizacionController::class, 'index']);
+// Rutas para el sensor de huellas
+Route::get('/fingerprint/check', [FingerprintController::class, 'check'])->name('fingerprint.check');
+Route::post('/fingerprint/capture', [FingerprintController::class, 'capture'])->name('fingerprint.capture');
 
 });
 

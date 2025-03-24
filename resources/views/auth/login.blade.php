@@ -35,7 +35,7 @@
                 <input class="from_input" type="email" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" required>
             </div>
 
-            <div class="form_group">
+            <div class="from_group">
                 <label class="from_label" for="password">Contraseña</label>
                 <input class="from_input" type="password" name="password" placeholder="Ingresa tu Contraseña" required>
             </div>

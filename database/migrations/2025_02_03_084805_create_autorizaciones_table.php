@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('fecha');  // No hay problema con esta columna
             $table->timestamp('hora_inicio')->nullable();  // Permitir que sea NULL si no se define un valor
             $table->timestamp('hora_expiracion')->nullable();  // También permitir que sea NULL
-            $table->enum('estado', ['autorizado', 'no_autorizado'])->default('no_autorizado');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

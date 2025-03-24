@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('numero_telefono');
             $table->string('direccion_residencia');
             $table->string('tipo_usuario');
+            // Si el usuario es administrador se guarda la contraseña, en otro caso se deja como null.
             $table->string('password');
+            $table->text('fingerprint_data')->nullable(); // Se agrega aquí el campo de huella
             $table->rememberToken();
             $table->timestamps();
         });
@@ -40,13 +42,10 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };

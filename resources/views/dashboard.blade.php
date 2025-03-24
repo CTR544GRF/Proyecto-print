@@ -3,6 +3,9 @@
 @section('style')
 {{ asset('css/tablas.css') }}
 @endsection
+@section('panel') Autorizaciones @endsection
+@section('descripcion') En este panel puedes ver todas las autorizaciones @endsection
+
 
 @section('principal_content')
 <div class="tabla">
@@ -23,7 +26,9 @@
                 <td data-label="Cédula">{{ $autorizacion->user->numero_documento }}</td> <!-- Muestra la cédula del usuario -->
                 <td data-label="Nombre de Usuario">{{ $autorizacion->user->nombre }}</td> <!-- Muestra el nombre del usuario relacionado -->
                 <td data-label="Fecha">{{ $autorizacion->fecha }}</td>
-                <td data-label="Estado">{{ $autorizacion->estado }}</td>
+                <td data-label="Estado" id="color_table" class="{{ $autorizacion->estado ? 'autorizado' : 'no-autorizado' }}">
+                    {{ $autorizacion->estado ? 'Autorizado' : 'No Autorizado' }}
+                </td>
                 <td data-label="Motivo">{{ $autorizacion->motivo }}</td>
             </tr>
             @endforeach

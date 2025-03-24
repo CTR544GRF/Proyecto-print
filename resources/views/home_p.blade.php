@@ -18,9 +18,9 @@
                 <p>Almacenista</p>
             </div>
             <nav class="menu">
-                <button>Autorizar</button>
-                <button>Crear Usuario</button>
-                <button>Ver Autorizaciones</button>
+                <a href="{{ route('autorizaciones.create') }}"><button>Autorizar</button></a>
+                <a href="{{ route('usuarios.create') }}"><button>Crear Usuario</button></a>
+                <a href="{{ route('dashboard') }}"><button> Ver Autorizaciones</button></a>
                 <button>Ver Entradas</button>
             </nav>
         </aside>
@@ -29,8 +29,8 @@
         <main class="content">
 
 
-            <h1> @yield('panel') Autorizar Usuarios</h1>
-            <p class="subtext"> @yield('descripcion') En este módulo puedes autorizar usuarios</p>
+            <h1> @yield('panel')</h1>
+            <p class="subtext"> @yield('descripcion')</p>
 
             <div class="form-container">
                 <div class="form-header">

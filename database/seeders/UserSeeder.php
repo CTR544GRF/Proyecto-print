@@ -26,5 +26,18 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+
+        User::create([
+            'nombre' => 'Camilo Diaz',
+            'numero_documento' => '100351043',
+            'email' => 'camilodiaz@gmail.com',
+            'numero_telefono' => '3013623860',
+            'direccion_residencia' => 'Calle 123, Ciudad, País',
+            'tipo_usuario' => 'admin',
+            'password' => bcrypt('3013623860'), 
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

@@ -1,0 +1,85 @@
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.form-group label {
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2d4b40;
+    margin-top: 0;
+    margin-bottom: 5px;text-align: start;
+}
+
+
+/* Inputs y textarea */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: white;
+}
+
+/* Enfoque de los inputs */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #3c6656;
+    box-shadow: 0 0 5px rgba(60, 102, 86, 0.5);
+}
+
+/* Inputs de solo lectura */
+.form-group input[readonly],
+.form-group textarea[readonly] {
+    background-color: #f0f0f0;
+    color: #666;
+    border-color: #ddd;
+}
+
+/* Ajustes específicos para textarea */
+.form-group textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+/* Estilo de botones */
+button {
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+
+/* Estilo motivo y hora */
+
+#motivo {
+    min-height: 40px; 
+    resize: vertical; 
+}
+#horas_autorizadas{
+width: 50%;
+}
+#horas,
+#horas label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

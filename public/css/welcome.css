@@ -1,13 +1,16 @@
 *{
     font-family: 'Inknut Antiqua', serif; 
     font-size: 14px;
+    box-sizing: border-box;
 }
 body{
+    height: 100vh;
     display: flex;
     justify-content: flex-end;
     padding: 10rem 15rem;
     border: #3A5350 solid 15px;
     margin: 0;
+    
 }
 
 .welcome{
