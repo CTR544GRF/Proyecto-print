@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\autorizaciones;
+use App\Models\Autorizaciones;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,7 +20,7 @@ class AutorizacionesSeeder extends Seeder
 
         if ($user) {
             for ($i = 1; $i <= 4; $i++) {
-                autorizaciones::create([
+                Autorizaciones::create([
                     'user_id' => $user->id,  
                     'motivo' => 'Motivo de autorización ' . $i,  
                     'fecha' => Carbon::now()->subDays(rand(1, 30)), 
