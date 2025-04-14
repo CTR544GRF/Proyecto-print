@@ -1,8 +1,16 @@
 @extends('home_p')
 
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/user_create.css') }}">
+{{ asset('css/user_create.css') }}
 @endsection
+
+@section('metaa')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+@endsection
+
+
 
 @section('panel') Crear Usuario @endsection
 @section('descripcion') Completa el formulario para registrar un nuevo usuario y capturar su huella dactilar. @endsection
@@ -63,25 +71,50 @@
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 <script>
-document.getElementById('scanFingerprint').addEventListener('click', function() {
-    let sensorStatus = document.getElementById('sensorStatus');
-    sensorStatus.innerHTML = 'Escaneando...';
+document.getElementById('scanFingerprint').addEventListener('click', async function() {
+    const btn = this;
+    btn.disabled = true;
+    document.getElementById('fingerprintPreview').textContent = "Capturando huella...";
 
-    fetch('/api/capturar-huella') // Ruta al controlador Laravel
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('fingerprintData').value = data.fingerprint;
-                sensorStatus.innerHTML = '<span style="color: green;">Huella capturada correctamente</span>';
-            } else {
-                sensorStatus.innerHTML = '<span style="color: red;">Error al capturar huella</span>';
+    try {
+        const response = await fetch('/capturar-huella', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            sensorStatus.innerHTML = '<span style="color: red;">Error al conectar con el sensor</span>';
         });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById('fingerprintData').value = data.fingerprint;
+            document.getElementById('fingerprintPreview').textContent = "✅ Huella capturada correctamente";
+            document.getElementById('fingerprintPreview').style.color = "green";
+        } else {
+            throw new Error(data.error || "Error desconocido al capturar la huella");
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('fingerprintPreview').textContent = "❌ Error al capturar huella";
+        document.getElementById('fingerprintPreview').style.color = "red";
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message
+        });
+    } finally {
+        btn.disabled = false;
+    }
 });
 </script>
 

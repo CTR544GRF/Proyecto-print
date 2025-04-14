@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutorizacionesController;
-use App\Http\Controllers\FingerprintController;
+use App\Http\Controllers\Api\FingerprintController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Autorizaciones;
@@ -22,9 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
 
 // Rutas para el sensor de huellas
-Route::get('/fingerprint/check', [FingerprintController::class, 'check'])->name('fingerprint.check');
-Route::post('/fingerprint/capture', [FingerprintController::class, 'capture'])->name('fingerprint.capture');
-
+    Route::post('/capturar-huella', [UserController::class, 'captureFingerprint']);
+    
 });
+
 
 require __DIR__.'/auth.php';

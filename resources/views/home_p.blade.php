@@ -6,6 +6,8 @@
     <title>@yield ('tittle') </title>
     <link rel="stylesheet" href="{{ asset('css/home_style.css') }}">
     <link rel="stylesheet" href=" @yield('style') ">
+    @yield ('metaa')
+    
 
 </head>
 <body>
