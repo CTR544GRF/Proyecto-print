@@ -3,69 +3,88 @@ import os
 import subprocess
 import json
 from datetime import datetime
+import sys
+import logging
 
-# Configuración de rutas
+# Configurar logging para enviar logs a stderr
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stderr)  # Los logs van a stderr
+    ]
+)
+
+# Configuraci�n de rutas
 HOME = os.path.expanduser("~")
 BIN_PATH = os.path.join(HOME, "Desktop/Proyecto-print/FDx_SDK_PRO_LINUX_PI_armv7l_3_8_8/bin/pi/sgfplibtest_fdu06")
 TEMP_DIR = os.path.join(HOME, "Desktop/huellas_capturadas")
 
 def capture_fingerprint():
-    print("🟢 Iniciando proceso de captura de huella...")
-    
-    # Crear directorio temporal si no existe
-    os.makedirs(TEMP_DIR, exist_ok=True)
-    
     try:
-        # Ejecutar el binario SecuGen
-        print("🔵 Ejecutando sgfplibtest_fdu06...")
+        # Crear directorio temporal si no existe
+        os.makedirs(TEMP_DIR, exist_ok=True)
+        
+        # Cambiar al directorio temporal
+        os.chdir(TEMP_DIR)
+        
+        # Ejecutar el binario SecuGen con timeout
+        logging.info("Ejecutando sgfplibtest_fdu06...")
         proceso = subprocess.run(
             [BIN_PATH],
-            input="\n\n\nindice_derecho\n\n\n",  # Simula las pulsaciones de tecla necesarias
+            input="\n\n\nindice_derecho\n\n\n",
             text=True,
-            capture_output=True
+            capture_output=True,
+            encoding='utf-8',
+            errors='replace',
+            timeout=30  # 30 segundos de timeout
         )
         
-        if proceso.returncode != 0:
-            error_msg = f"Error en la captura: {proceso.stderr}"
-            print(f"🔴 {error_msg}")
-            return {"success": False, "error": error_msg}
-        
-        print("🟢 Captura completada exitosamente")
-        
-        # Buscar archivos generados (asumiendo que generará .min o .raw)
+        # Buscar archivo generado
         fingerprint_file = None
-        for f in os.listdir():
-            if f.endswith(('.min', '.raw')):
-                fingerprint_file = f
+        for f in os.listdir(TEMP_DIR):
+            if f.endswith(('.min', '.raw')) and 'finger' in f:
+                fingerprint_file = os.path.join(TEMP_DIR, f)
                 break
         
         if not fingerprint_file:
-            error_msg = "No se encontró archivo de huella generado"
-            print(f"🔴 {error_msg}")
+            error_msg = "No se encontr� archivo de huella generado"
+            logging.error(error_msg)
             return {"success": False, "error": error_msg}
         
-        # Leer el archivo de huella en modo binario y convertirlo a hexadecimal
+        # Leer y convertir huella
         with open(fingerprint_file, 'rb') as f:
             fingerprint_data = f.read().hex().upper()
         
-        # Mover el archivo al directorio temporal
+        # Renombrar archivo
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        new_filename = f"huella_{timestamp}_{fingerprint_file}"
-        os.rename(fingerprint_file, os.path.join(TEMP_DIR, new_filename))
+        new_filename = f"huella_{timestamp}_{os.path.basename(fingerprint_file)}"
+        new_filepath = os.path.join(TEMP_DIR, new_filename)
+        os.rename(fingerprint_file, new_filepath)
         
-        print("✅ Huella capturada y convertida a hexadecimal")
         return {
             "success": True,
             "fingerprint": fingerprint_data,
             "filename": new_filename
         }
         
+    except subprocess.TimeoutExpired:
+        error_msg = "Tiempo de espera agotado al capturar huella"
+        logging.error(error_msg)
+        return {"success": False, "error": error_msg}
     except Exception as e:
         error_msg = f"Error inesperado: {str(e)}"
-        print(f"🔴 {error_msg}")
+        logging.error(error_msg)
         return {"success": False, "error": error_msg}
 
 if __name__ == "__main__":
-    # Cuando se ejecuta directamente, imprimir el resultado como JSON
+    # Limpiar cualquier salida previa
+    sys.stdout.flush()
+    
+    # Ejecutar y devolver solo JSON
     result = capture_fingerprint()
-    print(json.dumps(result))
+    print(json.dumps(result, ensure_ascii=False))
+    
+    # Asegurar que no hay m�s salida
+    sys.stdout.flush()
+    sys.stderr.flush()
